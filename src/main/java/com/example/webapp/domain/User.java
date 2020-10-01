@@ -1,9 +1,12 @@
 package com.example.webapp.domain;
 
+import lombok.Data;
+
 import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
 @Entity
 @Table (name = "usr")
 public class User {
@@ -20,7 +23,7 @@ public class User {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;
-
+    /*
     public Long getId() {
         return id;
     }
@@ -67,5 +70,5 @@ public class User {
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
-    }
+    } */
 }

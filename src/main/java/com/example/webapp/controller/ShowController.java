@@ -1,6 +1,5 @@
 package com.example.webapp.controller;
 
-
 import com.example.webapp.domain.Product;
 import com.example.webapp.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
