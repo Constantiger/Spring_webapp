@@ -26,37 +26,4 @@ public class Product {
 
     public Product() {
     }
-
-    /*
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getProdtype() {
-        return prodtype;
-    }
-
-    public void setProdtype(String prodtype) {
-        this.prodtype = prodtype;
-    } */
 }
