@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @RestController
@@ -27,9 +26,9 @@ public class UserAdministrationController {
     }
 
     @PostMapping("/registration")
-    public void addUser(@RequestParam(value = "username") String username,
+    public User addUser(@RequestParam(value = "username") String username,
                         @RequestParam (value = "password") String password,
                         @RequestParam (value = "email") String email) {
-        userService.createUser(username, password, email);
+        return userService.createUser(username, password, email);
     }
 }

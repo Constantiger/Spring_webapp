@@ -16,7 +16,7 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public void createUser(String username, String password, String email) {
+    public User createUser(String username, String password, String email) {
         User userFromDb = userRepo.findByUsername(username);
         if (userFromDb != null) {
             throw new UserExistsException(username);
@@ -25,6 +25,7 @@ public class UserService {
         user.setActive(true);
         user.setRoles(Collections.singleton(UserRole.USER));
         userRepo.save(user);
+        return user;
     }
     public void updateUser(String id, Product product){
 

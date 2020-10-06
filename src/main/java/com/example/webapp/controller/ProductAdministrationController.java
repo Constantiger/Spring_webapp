@@ -1,13 +1,9 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.domain.Product;
-import com.example.webapp.error.ProductNotFoundException;
-import com.example.webapp.repos.ProductRepo;
 import com.example.webapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 public class ProductAdministrationController {
@@ -20,13 +16,13 @@ public class ProductAdministrationController {
     }
 
     @PostMapping("/product")
-    public void add(@RequestParam (value = "text") String text, @RequestParam (value = "prodtype") String prodtype,
+    public Product add(@RequestParam (value = "text") String text, @RequestParam (value = "prodtype") String prodtype,
                     @RequestParam (value = "price") long price) {
-        productService.createProduct(text, prodtype, price);
+        return productService.createProduct(text, prodtype, price);
     }
 
     @PostMapping("/delete/{id}")
-    public void dell(@RequestParam Long id) {
-        productService.deleteProduct(id);
+    public Product dell(@RequestParam Long id) {
+        return productService.deleteProduct(id);
     }
 }
