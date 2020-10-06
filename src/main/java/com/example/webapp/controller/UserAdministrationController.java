@@ -16,17 +16,17 @@ public class UserAdministrationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/showUser/{id}")
+    @GetMapping("/User/{id}")
     public Optional<User> show(@RequestParam Long id) {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/showAllUsers")
+    @GetMapping("/User")
     public Iterable<User> showAll() {
         return userService.getUsers();
     }
 
-    @PostMapping("/registr")
+    @PostMapping("/registration")
     public void addUser(@RequestParam(value = "username") String username,
                         @RequestParam (value = "password") String password,
                         @RequestParam (value = "email") String email) {

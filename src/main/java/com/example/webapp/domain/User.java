@@ -1,12 +1,14 @@
 package com.example.webapp.domain;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 
-@Data
+@Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString
 @Entity
 @Table (name = "usr")
 public class User {
@@ -23,9 +25,6 @@ public class User {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;
-
-    public User() {
-    }
 
     public User(String username, String password, String email) {
         this.username = username;

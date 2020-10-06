@@ -11,12 +11,12 @@ public class ShowController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/showByProdtype")
-    public Iterable<Product> show(@RequestParam(value = "Prodtype") String filter) {
-        return productService.getProductsByProdtype(filter);
+    @GetMapping("/Product/{type}")
+    public Iterable<Product> show(@RequestParam String type) {
+        return productService.getProductsByProdtype(type);
     }
 
-    @GetMapping("/showAll")
+    @GetMapping("/Product")
     public Iterable<Product> showAll() {
         return productService.getProducts();
     }

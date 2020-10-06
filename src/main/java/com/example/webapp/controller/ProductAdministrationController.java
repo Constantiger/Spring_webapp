@@ -14,19 +14,19 @@ public class ProductAdministrationController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/show/{id}")
+    @GetMapping("/product/{id}")
     public Product showById(@PathVariable Long id) {
         return productService.getProductById(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/product")
     public void add(@RequestParam (value = "text") String text, @RequestParam (value = "prodtype") String prodtype,
                     @RequestParam (value = "price") long price) {
         productService.createProduct(text, prodtype, price);
     }
 
-    @PostMapping("/delete")
-    public void dell(@RequestParam(value = "dell") Long dellId) {
-        productService.deleteProduct(dellId);
+    @PostMapping("/delete/{id}")
+    public void dell(@RequestParam Long id) {
+        productService.deleteProduct(id);
     }
 }
