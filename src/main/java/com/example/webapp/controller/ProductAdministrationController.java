@@ -21,7 +21,7 @@ public class ProductAdministrationController {
         return productService.createProduct(text, prodtype, price);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Product dell(@RequestParam Long id) {
         return productService.deleteProduct(id);
     }

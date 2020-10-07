@@ -4,22 +4,24 @@ import com.example.webapp.domain.Product;
 import com.example.webapp.error.ProductNotFoundException;
 import com.example.webapp.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
     @Autowired
     private ProductRepo productRepo;
-
+@Secured("ADMIN")
     public Product createProduct(String text, String prodtype, long price) {
         Product product = new Product(text, prodtype, price);
         productRepo.save(product);
         return product;
     }
-
+    @Secured("ADMIN")
     public void updateProduct(String id, Product product){
 
     }
+    @Secured("ADMIN")
     public Product deleteProduct(Long id) {
         Product product;
         if (id != null && productRepo.existsById(id)) {

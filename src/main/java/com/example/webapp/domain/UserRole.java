@@ -1,5 +1,5 @@
 package com.example.webapp.domain;
 
 public enum UserRole {
-    USER;
+    USER_ROLE;
 }
