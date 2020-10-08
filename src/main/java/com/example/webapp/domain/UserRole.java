@@ -1,5 +1,5 @@
-package com.example.webapp.domain;
-
-public enum UserRole {
-    USER_ROLE;
-}
+//package com.example.webapp.domain;
+//
+//public enum UserRole {
+//    USER_ROLE;
+//}

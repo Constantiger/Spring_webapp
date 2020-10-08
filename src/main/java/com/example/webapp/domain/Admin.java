@@ -1,6 +1,8 @@
 //package com.example.webapp.domain;
 //
-//import lombok.Data;
+//import lombok.*;
+//import org.springframework.data.annotation.Id;
+//import org.springframework.data.annotation.Transient;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 //
@@ -8,27 +10,22 @@
 //import java.util.Collection;
 //import java.util.Set;
 //
-//@Data
+//
 //@Entity
-//@Table(name = "t_user")
-//public class User implements UserDetails {
+//@Table(name = "t_admin")
+//public class Admin implements UserDetails {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
+//
 //    private String username;
 //    private String password;
-////    private boolean active;
-////    @ManyToMany(fetch = FetchType.EAGER)
+//    @Transient
+//    private String passwordConfirm;
+//    @ManyToMany(fetch = FetchType.EAGER)
 //    private Set<Role> roles;
-////    @CollectionTable(name = "t_user_roles", joinColumns = @JoinColumn(name = "user_id"))
 //
-//
-//    public User() {
-//    }
-//
-//    public User(String password, String username) {
-//        this.password = password;
-//        this.username = username;
+//    public Admin() {
 //    }
 //
 //    public Long getId() {
@@ -64,8 +61,8 @@
 //        return true;
 //    }
 //
-//    public void setUsername(String username) {
-//        this.username = username;
+//    public void setUsername(String adminName) {
+//        this.username = adminName;
 //    }
 //
 //    @Override
@@ -82,6 +79,14 @@
 //        this.password = password;
 //    }
 //
+//    public String getPasswordConfirm() {
+//        return passwordConfirm;
+//    }
+//
+//    public void setPasswordConfirm(String passwordConfirm) {
+//        this.passwordConfirm = passwordConfirm;
+//    }
+//
 //    public Set<Role> getRoles() {
 //        return roles;
 //    }
@@ -89,5 +94,4 @@
 //    public void setRoles(Set<Role> roles) {
 //        this.roles = roles;
 //    }
-//
 //}

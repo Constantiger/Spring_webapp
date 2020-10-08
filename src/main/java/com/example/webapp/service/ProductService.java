@@ -2,26 +2,28 @@ package com.example.webapp.service;
 
 import com.example.webapp.domain.Product;
 import com.example.webapp.error.ProductNotFoundException;
+import com.example.webapp.model.Permission;
 import com.example.webapp.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
     @Autowired
     private ProductRepo productRepo;
-@Secured("ADMIN")
+    @PreAuthorize("hasAuthority('USER:WRITE')")
     public Product createProduct(String text, String prodtype, long price) {
         Product product = new Product(text, prodtype, price);
         productRepo.save(product);
         return product;
     }
-    @Secured("ADMIN")
+    @PreAuthorize("hasAuthority('USER:WRITE')")
     public void updateProduct(String id, Product product){
 
     }
-    @Secured("ADMIN")
+    @PreAuthorize("hasAuthority('USER:WRITE')")
     public Product deleteProduct(Long id) {
         Product product;
         if (id != null && productRepo.existsById(id)) {
