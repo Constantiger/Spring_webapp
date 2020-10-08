@@ -11,17 +11,17 @@ import org.springframework.stereotype.Service;
 public class ProductService {
     @Autowired
     private ProductRepo productRepo;
-    @PreAuthorize("hasAuthority('USER:WRITE')")
+    @PreAuthorize("hasAuthority('user:write')")
     public Product createProduct(String text, String prodtype, long price) {
         Product product = new Product(text, prodtype, price);
         productRepo.save(product);
         return product;
     }
-    @PreAuthorize("hasAuthority('USER:WRITE')")
+    @PreAuthorize("hasAuthority('user:write')")
     public void updateProduct(String id, Product product){
 
     }
-    @PreAuthorize("hasAuthority('USER:WRITE')")
+    @PreAuthorize("hasAuthority('user:write')")
     public Product deleteProduct(Long id) {
         Product product;
         if (id != null && productRepo.existsById(id)) {
@@ -33,10 +33,12 @@ public class ProductService {
         }
     }
 
+    @PreAuthorize("hasAuthority('user:read')")
     public Iterable<Product> getProducts() {
         return productRepo.findAll();
     }
 
+    @PreAuthorize("hasAuthority('user:read')")
     public Product getProductById(Long id) {
         return productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }

@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-@EnableGlobalMethodSecurity(securedEnabled = true)
 @SpringBootApplication
 @EnableSwagger2
 public class Application {

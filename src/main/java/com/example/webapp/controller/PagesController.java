@@ -29,17 +29,17 @@ public class PagesController {
         return "authenticated";
     }
 
-    @RequestMapping(value="/logout", method= RequestMethod.GET)
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/";
-    }
-    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
-    public String logoutSuccessfulPage(Model model) {
-        model.addAttribute("title", "Logout");
-        return "logoutSuccessfulPage";
-    }
+//    @RequestMapping(value="/logout", method= RequestMethod.GET)
+//    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (auth != null){
+//            new SecurityContextLogoutHandler().logout(request, response, auth);
+//        }
+//        return "redirect:/";
+//    }
+//    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+//    public String logoutSuccessfulPage(Model model) {
+//        model.addAttribute("title", "Logout");
+//        return "logoutSuccessfulPage";
+//    }
 }
