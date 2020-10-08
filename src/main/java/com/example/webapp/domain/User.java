@@ -7,6 +7,7 @@ import java.util.Set;
 
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @Entity

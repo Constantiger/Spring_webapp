@@ -5,7 +5,6 @@ import com.example.webapp.dao.ProductFilter;
 import com.example.webapp.domain.Product;
 import com.example.webapp.error.ProductNotFoundException;
 import com.example.webapp.repos.ProductRepo;
-import com.google.common.collect.Iterables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,17 +60,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 
-/*
-    public Iterable<Product> getProductsByProdtype(String prodtype) {
-        Iterable<Product> products;
-        if (prodtype != null && !prodtype.isEmpty()) {
-            products = productRepo.findByProdtype(prodtype);
-        } else {
-            products = productRepo.findAll();
-        }
-        return products;
-    }
-*/
     @Override
     public Iterable<Product> getProductsByFilter(ProductFilter filter) {
         Iterable<Product> products;
@@ -88,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
             filter.setMaxPrice(Long.MAX_VALUE);
         }
         products = StreamSupport.stream(products.spliterator(), false)
-                .filter((p) -> p.getPrice() > filter.getMinPrice() && p.getPrice() < filter.getMaxPrice())
+                .filter((p) -> p.getPrice() >= filter.getMinPrice() && p.getPrice() <= filter.getMaxPrice())
                 .collect(Collectors.toList());
         return products;
     }

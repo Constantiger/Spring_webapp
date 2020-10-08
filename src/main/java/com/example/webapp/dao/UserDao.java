@@ -1,9 +1,6 @@
 package com.example.webapp.dao;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
