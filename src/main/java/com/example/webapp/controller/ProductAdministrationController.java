@@ -1,28 +1,33 @@
 package com.example.webapp.controller;
 
+import com.example.webapp.dao.ProductDao;
 import com.example.webapp.domain.Product;
-import com.example.webapp.service.ProductService;
+import com.example.webapp.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductAdministrationController {
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productServiceImpl;
 
     @GetMapping("/product/{id}")
     public Product showById(@PathVariable Long id) {
-        return productService.getProductById(id);
+        return productServiceImpl.getProductById(id);
     }
 
     @PostMapping("/product")
-    public Product add(@RequestParam (value = "text") String text, @RequestParam (value = "prodtype") String prodtype,
-                    @RequestParam (value = "price") long price) {
-        return productService.createProduct(text, prodtype, price);
+    public Product add(@RequestBody ProductDao newProduct) {
+        return productServiceImpl.createProduct(newProduct);
     }
 
-    @PostMapping("/delete/{id}")
+    @PutMapping("/product/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody ProductDao updateProduct) {
+        return productServiceImpl.updateProduct(id, updateProduct);
+    }
+
+    @DeleteMapping("/product/{id}")
     public Product dell(@RequestParam Long id) {
-        return productService.deleteProduct(id);
+        return productServiceImpl.deleteProduct(id);
     }
 }

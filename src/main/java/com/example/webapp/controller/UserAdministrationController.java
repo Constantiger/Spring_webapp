@@ -1,34 +1,36 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.domain.User;
-import com.example.webapp.service.UserService;
+import com.example.webapp.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
 public class UserAdministrationController {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
-    @GetMapping("/User/{id}")
+    @GetMapping("/user/{id}")
     public Optional<User> show(@RequestParam Long id) {
-        return userService.getUserById(id);
+        return userServiceImpl.getUserById(id);
     }
 
-    @GetMapping("/User")
+    @GetMapping("/user")
     public Iterable<User> showAll() {
-        return userService.getUsers();
+        return userServiceImpl.getUsers();
     }
 
     @PostMapping("/registration")
     public User addUser(@RequestParam(value = "username") String username,
                         @RequestParam (value = "password") String password,
                         @RequestParam (value = "email") String email) {
-        return userService.createUser(username, password, email);
+        return userServiceImpl.createUser(username, password, email);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public User deleteUser(@RequestParam Long id) {
+        return userServiceImpl.deleteUser(id);
     }
 }

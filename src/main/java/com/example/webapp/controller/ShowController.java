@@ -1,22 +1,23 @@
 package com.example.webapp.controller;
 
+import com.example.webapp.dao.ProductFilter;
 import com.example.webapp.domain.Product;
-import com.example.webapp.service.ProductService;
+import com.example.webapp.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ShowController {
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productServiceImpl;
 
-    @GetMapping("/Product/{type}")
-    public Iterable<Product> show(@RequestParam String type) {
-        return productService.getProductsByProdtype(type);
+    @GetMapping("/filter")
+    public Iterable<Product> show(ProductFilter filter) {
+        return productServiceImpl.getProductsByFilter(filter);
     }
 
-    @GetMapping("/Product")
+    @GetMapping("/products")
     public Iterable<Product> showAll() {
-        return productService.getProducts();
+        return productServiceImpl.getProducts();
     }
 }
