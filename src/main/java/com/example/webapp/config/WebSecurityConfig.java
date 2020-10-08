@@ -53,32 +53,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     daoAuthenticationProvider.setUserDetailsService(userDetailsService);
     return daoAuthenticationProvider;
 }
-//    @Autowired
-//    private UserDetailsService userDetailsService;
-//
-//    @Bean
-//    public DaoAuthenticationProvider authProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userDetailsService);
-//        authProvider.setPasswordEncoder(encoder());
-//        return authProvider;
-//    }
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(authProvider());
-//    }
-//    @Autowired
-//    private DataSource dataSource;
-//
-//    @Override
-//    public void configure(WebSecurity web) {
-//        web.ignoring().antMatchers("/");
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .passwordEncoder(encoder())
-//                .usersByUsernameQuery("select username, password, active from t_user where username=?");
-////                .authoritiesByUsernameQuery("select u.username, ur.roles from t_user u inner join t_user_role ur on u.id = ur.user_id where u.username=?");
-//    }
 }

@@ -1,11 +1,9 @@
 package com.example.webapp.service;
 
-import com.example.webapp.domain.Product;
+import com.example.webapp.model.Product;
 import com.example.webapp.error.ProductNotFoundException;
-import com.example.webapp.model.Permission;
 import com.example.webapp.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 

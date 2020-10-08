@@ -30,19 +30,4 @@ public class RegistrationController {
         }
         return "redirect:/";
     }
-//    @GetMapping("/registration")
-//    public String registration(Model model) {
-//        model.addAttribute("userForm", new User());
-//
-//        return "registration";
-//    }
-//    @PostMapping("/registrationRole")
-//    public String addRole(@RequestParam(value = "roleName") String roleName,
-//                          @RequestParam(value = "id") Long id) {
-//        Role role = new Role(id, roleName);
-//        if (!userService.saveRole(role)){
-//            return "registrationRole";
-//        }
-//        return "redirect:/";
-//    }
 }

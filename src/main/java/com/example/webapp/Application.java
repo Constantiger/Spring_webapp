@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import static org.springframework.boot.SpringApplication.*;
 
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @SpringBootApplication

@@ -1,4 +1,4 @@
-package com.example.webapp.domain;
+package com.example.webapp.model;
 
 import lombok.*;
 
@@ -7,8 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Data
 @ToString
 @Entity
 public class Product {
@@ -24,5 +23,8 @@ public class Product {
         this.text = text;
         this.prodtype = prodtype;
         this.price = price;
+    }
+
+    public Product() {
     }
 }

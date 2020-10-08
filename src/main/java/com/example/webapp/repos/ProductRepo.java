@@ -1,6 +1,6 @@
 package com.example.webapp.repos;
 
-import com.example.webapp.domain.Product;
+import com.example.webapp.model.Product;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.CrudRepository;
 
