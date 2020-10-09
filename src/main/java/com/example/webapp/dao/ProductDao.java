@@ -10,12 +10,14 @@ import lombok.ToString;
 @ToString
 public class ProductDao {
     private String text;
-    private String prodtype;
+    private String productType;
     private Long price;
+    private Long amount;
 
-    public ProductDao(String text, String prodtype, long price) {
+    public ProductDao(String text, String productType, Long price, Long amount) {
         this.text = text;
-        this.prodtype = prodtype;
+        this.productType = productType;
         this.price = price;
+        this.amount = amount;
     }
 }

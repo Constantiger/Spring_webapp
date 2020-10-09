@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(ProductDao newProduct) {
-        Product product = new Product(newProduct.getText(), newProduct.getProdtype(), newProduct.getPrice());
+        Product product = new Product(newProduct.getText(), newProduct.getProductType(), newProduct.getPrice(), newProduct.getAmount());
         productRepo.save(product);
         return product;
     }
@@ -31,9 +31,14 @@ public class ProductServiceImpl implements ProductService {
         } else {
             throw new ProductNotFoundException(id);
         }
-        product.setPrice(updateProduct.getPrice());
-        product.setProdtype(updateProduct.getProdtype());
-        product.setText(updateProduct.getText());
+        if (updateProduct.getPrice() != null)
+            product.setPrice(updateProduct.getPrice());
+        if (updateProduct.getProductType() != null)
+            product.setProductType(updateProduct.getProductType());
+        if (updateProduct.getText() != null)
+            product.setText(updateProduct.getText());
+        if (updateProduct.getAmount() != null)
+            product.setAmount(updateProduct.getAmount());
         productRepo.save(product);
         return product;
     }
@@ -65,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
         Iterable<Product> products;
         String type = filter.getProductType();
         if (type != null && !type.isEmpty()) {
-            products = productRepo.findByProdtype(type);
+            products = productRepo.findByProductType(type);
         } else {
             products = productRepo.findAll();
         }
@@ -75,8 +80,13 @@ public class ProductServiceImpl implements ProductService {
         if (filter.getMaxPrice() == null) {
             filter.setMaxPrice(Long.MAX_VALUE);
         }
+        if (filter.getPresent() == null) {
+            filter.setPresent(Boolean.FALSE);
+        }
         products = StreamSupport.stream(products.spliterator(), false)
-                .filter((p) -> p.getPrice() >= filter.getMinPrice() && p.getPrice() <= filter.getMaxPrice())
+                .filter((p) -> p.getPrice() >= filter.getMinPrice()
+                            && p.getPrice() <= filter.getMaxPrice()
+                            && !(p.getAmount() == 0 && filter.getPresent()))
                 .collect(Collectors.toList());
         return products;
     }
