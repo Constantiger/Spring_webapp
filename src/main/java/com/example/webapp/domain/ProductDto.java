@@ -1,4 +1,4 @@
-package com.example.webapp.dao;
+package com.example.webapp.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,13 +8,13 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ToString
-public class ProductDao {
+public class ProductDto {
     private String text;
     private String productType;
     private Long price;
     private Long amount;
 
-    public ProductDao(String text, String productType, Long price, Long amount) {
+    public ProductDto(String text, String productType, Long price, Long amount) {
         this.text = text;
         this.productType = productType;
         this.price = price;

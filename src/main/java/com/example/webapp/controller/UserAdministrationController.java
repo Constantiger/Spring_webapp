@@ -1,12 +1,10 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.dao.UserDao;
+import com.example.webapp.domain.UserDto;
 import com.example.webapp.domain.User;
 import com.example.webapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 public class UserAdministrationController {
@@ -24,12 +22,12 @@ public class UserAdministrationController {
     }
 
     @PostMapping("/registration")
-    public User addUser(@RequestBody UserDao newUser) {
+    public User addUser(@RequestBody UserDto newUser) {
         return userService.createUser(newUser);
     }
 
     @PutMapping("/user/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody UserDao updateUser) {
+    public User updateUser(@PathVariable Long id, @RequestBody UserDto updateUser) {
         return userService.updateUser(id, updateUser);
     }
 

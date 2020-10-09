@@ -1,8 +1,6 @@
-package com.example.webapp.dao;
+package com.example.webapp.domain;
 
 import lombok.*;
-
-import javax.persistence.SecondaryTable;
 
 @Getter
 @Setter

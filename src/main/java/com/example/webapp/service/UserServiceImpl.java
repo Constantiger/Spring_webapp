@@ -1,6 +1,6 @@
 package com.example.webapp.service;
 
-import com.example.webapp.dao.UserDao;
+import com.example.webapp.domain.UserDto;
 import com.example.webapp.domain.User;
 import com.example.webapp.domain.UserRole;
 import com.example.webapp.error.UserExistsException;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,7 +17,7 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
 
     @Override
-    public User createUser(UserDao newUser) {
+    public User createUser(UserDto newUser) {
         User userFromDb = userRepo.findByUsername(newUser.getUsername());
         if (userFromDb != null) {
             throw new UserExistsException(newUser.getUsername());
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long id, UserDao updateUser){
+    public User updateUser(Long id, UserDto updateUser){
         User user;
         if (id != null && userRepo.existsById(id)) {
             user = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));

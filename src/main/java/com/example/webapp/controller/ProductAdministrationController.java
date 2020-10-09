@@ -1,6 +1,6 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.dao.ProductDao;
+import com.example.webapp.domain.ProductDto;
 import com.example.webapp.domain.Product;
 import com.example.webapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ public class ProductAdministrationController {
     }
 
     @PostMapping("/product")
-    public Product add(@RequestBody ProductDao newProduct) {
+    public Product add(@RequestBody ProductDto newProduct) {
         return productService.createProduct(newProduct);
     }
 
     @PutMapping("/product/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody ProductDao updateProduct) {
+    public Product updateProduct(@PathVariable Long id, @RequestBody ProductDto updateProduct) {
         return productService.updateProduct(id, updateProduct);
     }
 

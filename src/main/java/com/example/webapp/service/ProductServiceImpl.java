@@ -1,7 +1,7 @@
 package com.example.webapp.service;
 
-import com.example.webapp.dao.ProductDao;
-import com.example.webapp.dao.ProductFilter;
+import com.example.webapp.domain.ProductDto;
+import com.example.webapp.domain.ProductFilter;
 import com.example.webapp.domain.Product;
 import com.example.webapp.error.ProductNotFoundException;
 import com.example.webapp.repos.ProductRepo;
@@ -17,14 +17,14 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepo productRepo;
 
     @Override
-    public Product createProduct(ProductDao newProduct) {
+    public Product createProduct(ProductDto newProduct) {
         Product product = new Product(newProduct.getText(), newProduct.getProductType(), newProduct.getPrice(), newProduct.getAmount());
         productRepo.save(product);
         return product;
     }
 
     @Override
-    public Product updateProduct(Long id, ProductDao updateProduct){
+    public Product updateProduct(Long id, ProductDto updateProduct){
         Product product;
         if (id != null && productRepo.existsById(id)) {
             product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
@@ -84,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
             filter.setPresent(Boolean.FALSE);
         }
         products = StreamSupport.stream(products.spliterator(), false)
-                .filter((p) -> p.getPrice() >= filter.getMinPrice()
+                .filter(p -> p.getPrice() >= filter.getMinPrice()
                             && p.getPrice() <= filter.getMaxPrice()
                             && !(p.getAmount() == 0 && filter.getPresent()))
                 .collect(Collectors.toList());

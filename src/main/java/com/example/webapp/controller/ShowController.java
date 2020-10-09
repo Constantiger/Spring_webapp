@@ -1,6 +1,6 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.dao.ProductFilter;
+import com.example.webapp.domain.ProductFilter;
 import com.example.webapp.domain.Product;
 import com.example.webapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
