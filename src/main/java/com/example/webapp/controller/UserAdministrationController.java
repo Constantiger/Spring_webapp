@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserAdministrationController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    UserAdministrationController(@Autowired UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/user/{id}")
     public User show(@RequestParam Long id) {
@@ -21,7 +24,7 @@ public class UserAdministrationController {
         return userService.getUsers();
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/user")
     public User addUser(@RequestBody UserDto newUser) {
         return userService.createUser(newUser);
     }

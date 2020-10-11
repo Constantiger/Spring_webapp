@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductAdministrationController {
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    ProductAdministrationController(@Autowired ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping("/product/{id}")
     public Product showById(@PathVariable Long id) {
