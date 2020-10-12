@@ -21,8 +21,8 @@ public class ProductAdministrationController {
         return productService.createProduct(text, prodtype, price);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public Product dell(@RequestParam Long id) {
+    @DeleteMapping("/user/{id}")
+    public Product dell(@PathVariable Long id) {
         return productService.deleteProduct(id);
     }
 }

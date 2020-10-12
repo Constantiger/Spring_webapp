@@ -7,8 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Data
-@ToString
+@Getter
+@Setter
 @Entity
 public class Product {
     @Id

@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests().antMatchers("/authenticated").authenticated()
                 .and()
-                .authorizeRequests().antMatchers("/product/**", "/product", "/authenticated", "/delete_error").hasAuthority(Permission.USER_READ.getPermission())
+                .authorizeRequests().antMatchers("/product/**", "/product", "/authenticated", "/delete_error").hasAuthority(Permission.USER_READ.getPermissions())
                 .and()
                 .authorizeRequests().antMatchers("/public", "/logout").permitAll()
                 .and()
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
-    @Bean
+    @Bean // можно переписать меньше
     protected DaoAuthenticationProvider daoAuthenticationProvider() {
     DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
     daoAuthenticationProvider.setPasswordEncoder(encoder());

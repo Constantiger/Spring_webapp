@@ -1,13 +1,13 @@
 package com.example.webapp.model;
 
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
-@ToString
+@Getter
+@Setter
 @Entity
 @Table(name = "t_user")
 public class User {
@@ -19,9 +19,10 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    public User(String username, String password) {
+    public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     public User() {
