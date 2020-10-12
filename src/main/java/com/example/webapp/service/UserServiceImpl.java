@@ -36,6 +36,17 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    public User saveAdmin(UserDto userDto){
+        User userFromBd = userRepository.findByUsername(userDto.getUsername());
+        if (userFromBd != null)
+            return userFromBd;
+        User user = new User(userDto.getUsername(), encoder.encode(userDto.getPassword()), Role.ADMIN);
+        user.setPassword(encoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return user;
+    }
+
+
     @PreAuthorize("hasAuthority('user:write')")
     public User deleteUser(String username){
         User user = userRepository.findByUsername(username);

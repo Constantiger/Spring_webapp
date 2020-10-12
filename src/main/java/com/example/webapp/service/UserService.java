@@ -13,6 +13,8 @@ public interface UserService extends UserDetailsService {
 
     public User saveUser(UserDto userDto);
 
+    public User saveAdmin(UserDto userDto);
+
     public User deleteUser(String username);
 
     public Iterable<User> getAllUsers();

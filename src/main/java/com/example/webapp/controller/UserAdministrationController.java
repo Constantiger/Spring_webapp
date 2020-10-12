@@ -20,7 +20,7 @@ public class UserAdministrationController {
 
     @PostMapping("/admin")
     public User postUserAdmin(@RequestBody UserDto userDto) {
-        return userServiceImpl.saveUser(userDto);
+        return userServiceImpl.saveAdmin(userDto);
     }
 
     @DeleteMapping("/user/{username}")
