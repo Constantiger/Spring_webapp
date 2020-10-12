@@ -1,6 +1,5 @@
 package com.example.webapp.service;
 
-import com.example.webapp.error.UserExistsException;
 import com.example.webapp.model.Role;
 import com.example.webapp.model.User;
 import com.example.webapp.model.UserDto;
@@ -8,7 +7,6 @@ import com.example.webapp.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +39,6 @@ public class UserServiceImpl implements UserService {
         if (userFromBd != null)
             return userFromBd;
         User user = new User(userDto.getUsername(), encoder.encode(userDto.getPassword()), Role.ADMIN);
-        user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
     }
