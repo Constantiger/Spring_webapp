@@ -6,8 +6,8 @@ import com.example.webapp.domain.Product;
 import com.example.webapp.error.ProductNotFoundException;
 import com.example.webapp.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -70,18 +70,9 @@ public class ProductServiceImpl implements ProductService {
         Iterable<Product> products;
         String type = filter.getProductType();
         if (type != null && !type.isEmpty()) {
-            products = productRepo.findByProductType(type);
+            products = productRepo.findByProductType(type, PageRequest.of(filter.getPage(),3));
         } else {
             products = productRepo.findAll();
-        }
-        if (filter.getMinPrice() == null) {
-            filter.setMinPrice(0L);
-        }
-        if (filter.getMaxPrice() == null) {
-            filter.setMaxPrice(Long.MAX_VALUE);
-        }
-        if (filter.getPresent() == null) {
-            filter.setPresent(Boolean.FALSE);
         }
         products = StreamSupport.stream(products.spliterator(), false)
                 .filter(p -> p.getPrice() >= filter.getMinPrice()
