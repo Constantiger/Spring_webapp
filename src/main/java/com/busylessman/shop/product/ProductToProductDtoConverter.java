@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductToProductDtoConverter implements Converter<Product, ProductDto> {
-    @Override
+
     public ProductDto convert(Product product) {
         return new ProductDto(product.getId(), product.getName(), product.getPrice());
     }
