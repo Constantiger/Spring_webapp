@@ -28,4 +28,11 @@ public class Product {
         this.price = price;
         this.amount = amount;
     }
+
+    public void setProduct(ProductDto dto) {
+        this.setPrice(dto.getPrice());
+        this.setProductType(dto.getProductType());
+        this.setText(dto.getText());
+        this.setAmount(dto.getAmount());
+    }
 }

@@ -7,9 +7,8 @@ import com.example.webapp.error.ProductNotFoundException;
 import com.example.webapp.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -26,19 +25,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product updateProduct(Long id, ProductDto updateProduct){
         Product product;
-        if (id != null && productRepo.existsById(id)) {
-            product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
-        } else {
-            throw new ProductNotFoundException(id);
-        }
-        if (updateProduct.getPrice() != null)
-            product.setPrice(updateProduct.getPrice());
-        if (updateProduct.getProductType() != null)
-            product.setProductType(updateProduct.getProductType());
-        if (updateProduct.getText() != null)
-            product.setText(updateProduct.getText());
-        if (updateProduct.getAmount() != null)
-            product.setAmount(updateProduct.getAmount());
+        product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        product.setProduct(updateProduct);
         productRepo.save(product);
         return product;
     }
@@ -46,13 +34,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product deleteProduct(Long id) {
         Product product;
-        if (id != null && productRepo.existsById(id)) {
-            product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
-            productRepo.deleteById(id);
-            return product;
-        } else {
-            throw new ProductNotFoundException(id);
-        }
+        product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        productRepo.deleteById(id);
+        return product;
     }
 
     @Override
@@ -69,16 +53,17 @@ public class ProductServiceImpl implements ProductService {
     public Iterable<Product> getProductsByFilter(ProductFilter filter) {
         Iterable<Product> products;
         String type = filter.getProductType();
+        Sort.Direction sortOrder = ("desc".equals(filter.getSortOrder())) ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Long    present = (filter.getPresent().equals(Boolean.TRUE)) ? 1L : 0L;
         if (type != null && !type.isEmpty()) {
-            products = productRepo.findByProductType(type, PageRequest.of(filter.getPage(),3));
+            products = productRepo.findByProductTypeAndPriceBetweenAndAmountGreaterThanEqual(type, filter.getMinPrice(),
+                            filter.getMaxPrice(), present, PageRequest.of(filter.getPage(), filter.getPageSize(),
+                            Sort.by(sortOrder, filter.getSortBy())));
         } else {
-            products = productRepo.findAll();
+            products = productRepo.findByPriceBetweenAndAmountGreaterThanEqual(filter.getMinPrice(), filter.getMaxPrice()
+                            ,present, PageRequest.of(filter.getPage(), filter.getPageSize(),
+                            Sort.by(sortOrder, filter.getSortBy())));
         }
-        products = StreamSupport.stream(products.spliterator(), false)
-                .filter(p -> p.getPrice() >= filter.getMinPrice()
-                            && p.getPrice() <= filter.getMaxPrice()
-                            && !(p.getAmount() == 0 && filter.getPresent()))
-                .collect(Collectors.toList());
         return products;
     }
 }
