@@ -10,5 +10,6 @@ public interface ProductService {
     Product deleteProduct(Long id);
     Iterable<Product> getProducts();
     Product getProductById(Long id);
+    Iterable<Product> getProductById(Iterable<Long> ids);
     Iterable<Product> getProductsByFilter(ProductFilter filter);
 }

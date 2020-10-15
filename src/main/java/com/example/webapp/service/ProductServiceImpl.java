@@ -50,6 +50,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Iterable<Product> getProductById(Iterable<Long> ids) {
+        return productRepo.findAllById(ids);
+    }
+
+    @Override
     public Iterable<Product> getProductsByFilter(ProductFilter filter) {
         Iterable<Product> products;
         String type = filter.getProductType();
