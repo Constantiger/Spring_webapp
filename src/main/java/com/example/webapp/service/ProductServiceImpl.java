@@ -1,19 +1,19 @@
 package com.example.webapp.service;
 
+import com.example.webapp.domain.Product;
 import com.example.webapp.domain.ProductDto;
 import com.example.webapp.domain.ProductFilter;
-import com.example.webapp.domain.Product;
 import com.example.webapp.error.ProductNotFoundException;
 import com.example.webapp.repos.ProductRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    private ProductRepo productRepo;
+    private final ProductRepo productRepo;
 
     @Override
     public Product createProduct(ProductDto newProduct) {

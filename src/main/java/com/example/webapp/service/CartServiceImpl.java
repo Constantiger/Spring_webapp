@@ -4,23 +4,17 @@ import com.example.webapp.domain.Cart;
 import com.example.webapp.domain.Product;
 import com.example.webapp.error.ProductNotFoundException;
 import com.example.webapp.repos.CartRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
 
 @Service
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
-    @Autowired
-    private CartRepo cartRepo;
-
+    private final CartRepo cartRepo;
     private final ProductService productService;
-
-    @Autowired
-    public CartServiceImpl(ProductService productService) {
-        this.productService = productService;
-    }
 
     @Override
     public Cart createCart(Long id, Long[] productIds) {

@@ -2,12 +2,8 @@ package com.example.webapp.domain;
 
 import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
-@ToString
+@Value
 public class CartDto {
-    private Long id;
-    private Long[] productIds;
+    Long id;
+    Long[] productIds;
 }

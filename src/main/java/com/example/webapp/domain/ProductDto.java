@@ -1,18 +1,13 @@
 package com.example.webapp.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
-@ToString
+@Value
 public class ProductDto {
-    private String text;
-    private String productType;
-    private Long price;
-    private Long amount;
+    String text;
+    String productType;
+    Long price;
+    Long amount;
 
     public ProductDto(String text, String productType, Long price, Long amount) {
         this.text = text;

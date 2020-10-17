@@ -1,20 +1,20 @@
 package com.example.webapp.service;
 
-import com.example.webapp.domain.UserDto;
 import com.example.webapp.domain.User;
+import com.example.webapp.domain.UserDto;
 import com.example.webapp.domain.UserRole;
 import com.example.webapp.error.UserExistsException;
 import com.example.webapp.error.UserNotFoundException;
 import com.example.webapp.repos.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
 
     @Override
     public User createUser(UserDto newUser) {
