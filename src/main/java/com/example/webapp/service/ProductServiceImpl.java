@@ -1,14 +1,16 @@
 package com.example.webapp.service;
 
 import com.example.webapp.domain.Product;
-import com.example.webapp.domain.ProductDto;
 import com.example.webapp.domain.ProductFilter;
+import com.example.webapp.dto.ProductDto;
 import com.example.webapp.error.ProductNotFoundException;
 import com.example.webapp.repos.ProductRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import static com.example.webapp.domain.ProductSpecs.*;
 
 @Service
 @RequiredArgsConstructor
@@ -58,17 +60,25 @@ public class ProductServiceImpl implements ProductService {
     public Iterable<Product> getProductsByFilter(ProductFilter filter) {
         Iterable<Product> products;
         String type = filter.getProductType();
-        Sort.Direction sortOrder = ("desc".equals(filter.getSortOrder())) ? Sort.Direction.DESC : Sort.Direction.ASC;
-        Long    present = (filter.getPresent().equals(Boolean.TRUE)) ? 1L : 0L;
+
         if (type != null && !type.isEmpty()) {
             products = productRepo.findByProductTypeAndPriceBetweenAndAmountGreaterThanEqual(type, filter.getMinPrice(),
-                            filter.getMaxPrice(), present, PageRequest.of(filter.getPage(), filter.getPageSize(),
-                            Sort.by(sortOrder, filter.getSortBy())));
+                            filter.getMaxPrice(), filter.getMinAmount(), PageRequest.of(filter.getPage(), filter.getPageSize(),
+                            Sort.by(filter.getSortDir(), filter.getSortBy())));
         } else {
             products = productRepo.findByPriceBetweenAndAmountGreaterThanEqual(filter.getMinPrice(), filter.getMaxPrice()
-                            ,present, PageRequest.of(filter.getPage(), filter.getPageSize(),
-                            Sort.by(sortOrder, filter.getSortBy())));
+                            ,filter.getMinAmount(), PageRequest.of(filter.getPage(), filter.getPageSize(),
+                            Sort.by(filter.getSortDir(), filter.getSortBy())));
         }
         return products;
+    }
+
+    @Override
+    public Iterable<Product> getProducts(ProductFilter filter) {
+        return productRepo.findAll(
+                productTypeIs(filter.getProductType())
+                        .and(priceBetween(filter.getMinPrice(), filter.getMaxPrice())
+                        .and(amountBiger(filter.getMinAmount()))),
+                PageRequest.of(filter.getPage(), filter.getPageSize(), Sort.by(filter.getSortDir(), filter.getSortBy()))).toList();
     }
 }

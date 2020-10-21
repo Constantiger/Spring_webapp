@@ -1,4 +1,4 @@
-package com.example.webapp.domain;
+package com.example.webapp.dto;
 
 import lombok.*;
 

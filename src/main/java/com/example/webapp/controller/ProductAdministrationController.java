@@ -1,6 +1,6 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.domain.ProductDto;
+import com.example.webapp.dto.ProductDto;
 import com.example.webapp.domain.Product;
 import com.example.webapp.domain.ProductFilter;
 import com.example.webapp.service.ProductService;
@@ -22,7 +22,7 @@ public class ProductAdministrationController {
 
     @GetMapping("/product")
     public Iterable<Product> product(ProductFilter filter) {
-        return productService.getProductsByFilter(filter);
+        return productService.getProducts(filter);
     }
 
     @GetMapping("/product/all")

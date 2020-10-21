@@ -1,7 +1,7 @@
 package com.example.webapp.service;
 
 import com.example.webapp.domain.User;
-import com.example.webapp.domain.UserDto;
+import com.example.webapp.dto.UserDto;
 import com.example.webapp.domain.UserRole;
 import com.example.webapp.error.UserExistsException;
 import com.example.webapp.error.UserNotFoundException;

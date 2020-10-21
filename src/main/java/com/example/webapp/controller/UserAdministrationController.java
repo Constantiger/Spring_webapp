@@ -1,6 +1,6 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.domain.UserDto;
+import com.example.webapp.dto.UserDto;
 import com.example.webapp.domain.User;
 import com.example.webapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

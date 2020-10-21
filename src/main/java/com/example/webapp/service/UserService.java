@@ -1,6 +1,6 @@
 package com.example.webapp.service;
 
-import com.example.webapp.domain.UserDto;
+import com.example.webapp.dto.UserDto;
 import com.example.webapp.domain.User;
 
 public interface UserService {

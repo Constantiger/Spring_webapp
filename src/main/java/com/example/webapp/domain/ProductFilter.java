@@ -1,6 +1,7 @@
 package com.example.webapp.domain;
 
 import lombok.*;
+import org.springframework.data.domain.Sort;
 
 @Getter
 @Setter
@@ -10,21 +11,23 @@ public class ProductFilter {
     private String productType;
     private Long   maxPrice;
     private Long   minPrice;
-    private Boolean present;
+    private Long    minAmount;
     private Integer page;
     private Integer pageSize;
     private String  sortBy;
     private String  sortOrder;
+    private Sort.Direction sortDir;
 
-    public ProductFilter(String productType, Long maxPrice, Long minPrice, Boolean present,
+    public ProductFilter(String productType, Long maxPrice, Long minPrice, Long minAmount,
                          Integer page, Integer pageSize, String sortBy, String sortOrder) {
         this.productType = productType;
         this.maxPrice = (maxPrice == null) ? Long.MAX_VALUE : maxPrice;
         this.minPrice = (minPrice == null) ? 0L : minPrice;
-        this.present = (present == null) ? Boolean.FALSE : present;
+        this.minAmount = (minAmount == null) ? 0L : minAmount;
         this.page = (page == null) ? 0 : page;
         this.pageSize = (pageSize == null) ? 20 : pageSize;
         this.sortBy = (sortBy == null) ? "id" : sortBy;
         this.sortOrder = (sortOrder == null) ? "asc" : sortOrder;
+        this.sortDir = ("desc".equals(this.sortOrder)) ? Sort.Direction.DESC : Sort.Direction.ASC;
     }
 }

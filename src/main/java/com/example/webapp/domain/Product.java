@@ -1,5 +1,6 @@
 package com.example.webapp.domain;
 
+import com.example.webapp.dto.ProductDto;
 import lombok.*;
 
 import javax.persistence.Entity;

@@ -1,7 +1,7 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.domain.Cart;
-import com.example.webapp.domain.CartDto;
+import com.example.webapp.dto.CartDto;
 import com.example.webapp.domain.Product;
 import com.example.webapp.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
