@@ -22,7 +22,6 @@ public class UserCart {
 
     private String username;
 
-    @ElementCollection
     @OneToMany(fetch = FetchType.EAGER)
     private List<Product> cart;
 
