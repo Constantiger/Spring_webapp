@@ -22,7 +22,7 @@ public class UserCart {
 
     private String username;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Product> cart;
 
     public UserCart(UserCartDto user) {

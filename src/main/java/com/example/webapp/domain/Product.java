@@ -30,10 +30,17 @@ public class Product {
         this.amount = amount;
     }
 
-    public void setProduct(ProductDto dto) {
-        this.setPrice(dto.getPrice());
-        this.setProductType(dto.getProductType());
-        this.setText(dto.getText());
-        this.setAmount(dto.getAmount());
+    public Product(ProductDto productDto) {
+        this.text = productDto.getText();
+        this.productType = productDto.getProductType();
+        this.price = productDto.getPrice();
+        this.amount = productDto.getAmount();
+    }
+
+    public void setProduct(ProductDto productDto) {
+        this.setPrice(productDto.getPrice());
+        this.setProductType(productDto.getProductType());
+        this.setText(productDto.getText());
+        this.setAmount(productDto.getAmount());
     }
 }

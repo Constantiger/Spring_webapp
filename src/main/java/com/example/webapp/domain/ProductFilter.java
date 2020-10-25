@@ -1,6 +1,8 @@
 package com.example.webapp.domain;
 
 import lombok.*;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 @Getter
@@ -9,13 +11,13 @@ import org.springframework.data.domain.Sort;
 @ToString
 public class ProductFilter {
     private String productType;
-    private Long   maxPrice;
-    private Long   minPrice;
-    private Long    minAmount;
+    private Long maxPrice;
+    private Long minPrice;
+    private Long minAmount;
     private Integer page;
     private Integer pageSize;
-    private String  sortBy;
-    private String  sortOrder;
+    private String sortBy;
+    private String sortOrder;
     private Sort.Direction sortDir;
 
     public ProductFilter(String productType, Long maxPrice, Long minPrice, Long minAmount,
@@ -29,5 +31,9 @@ public class ProductFilter {
         this.sortBy = (sortBy == null) ? "id" : sortBy;
         this.sortOrder = (sortOrder == null) ? "asc" : sortOrder;
         this.sortDir = ("desc".equals(this.sortOrder)) ? Sort.Direction.DESC : Sort.Direction.ASC;
+    }
+
+    public static Pageable pageRequest(ProductFilter filter) {
+        return PageRequest.of(filter.getPage(), filter.getPageSize(), Sort.by(filter.getSortDir(), filter.getSortBy()));
     }
 }

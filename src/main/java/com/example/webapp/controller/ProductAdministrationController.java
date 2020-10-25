@@ -1,19 +1,16 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.dto.ProductDto;
 import com.example.webapp.domain.Product;
 import com.example.webapp.domain.ProductFilter;
+import com.example.webapp.dto.ProductDto;
 import com.example.webapp.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @RestController
 public class ProductAdministrationController {
     private final ProductService productService;
-
-    ProductAdministrationController(@Autowired ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping("/product/{id}")
     public Product productById(@PathVariable Long id) {
@@ -41,7 +38,7 @@ public class ProductAdministrationController {
     }
 
     @DeleteMapping("/product/{id}")
-    public Product deleteProduct(@RequestParam Long id) {
+    public Product deleteProduct(@PathVariable Long id) {
         return productService.deleteProduct(id);
     }
 }

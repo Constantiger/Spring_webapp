@@ -1,21 +1,18 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.dto.UserDto;
 import com.example.webapp.domain.User;
+import com.example.webapp.dto.UserDto;
 import com.example.webapp.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @RestController
 public class UserAdministrationController {
     private final UserService userService;
 
-    UserAdministrationController(@Autowired UserService userService) {
-        this.userService = userService;
-    }
-
     @GetMapping("/user/{id}")
-    public User show(@RequestParam Long id) {
+    public User show(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
@@ -35,7 +32,7 @@ public class UserAdministrationController {
     }
 
     @DeleteMapping("/user/{id}")
-    public User deleteUser(@RequestParam Long id) {
+    public User deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
     }
 }

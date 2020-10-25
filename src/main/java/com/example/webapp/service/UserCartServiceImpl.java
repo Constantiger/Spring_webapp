@@ -21,34 +21,21 @@ public class UserCartServiceImpl implements UserCartService {
         if (userCartRepo.findByUsername(newUser.getUsername()) != null) {
             throw new UserExistsException(newUser.getUsername());
         }
-        UserCart user = new UserCart(newUser);
-        userCartRepo.save(user);
-        return user;
+        return userCartRepo.save(UserCartDto.getNewUserCart(newUser));
     }
 
     @Override
-    public UserCart updateUser(Long id, UserCartDto updateUser) {
-        UserCart user;
-        if (id != null && userCartRepo.existsById(id)) {
-            user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        } else {
-            throw new UserNotFoundException(id);
-        }
+    public UserCart updateUser(long id, UserCartDto updateUser) {
+        UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.setUsername(updateUser.getUsername());
-        userCartRepo.save(user);
-        return user;
+        return userCartRepo.save(user);
     }
 
     @Override
-    public UserCart deleteUser(Long id) {
-        UserCart user;
-        if (id != null && userCartRepo.existsById(id)) {
-            user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-            userCartRepo.deleteById(id);
-            return user;
-        } else {
-            throw new UserNotFoundException(id);
-        }
+    public UserCart deleteUser(long id) {
+        UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        userCartRepo.deleteById(id);
+        return user;
     }
 
     @Override
@@ -57,29 +44,22 @@ public class UserCartServiceImpl implements UserCartService {
     }
 
     @Override
-    public UserCart getUserById(Long id) {
+    public UserCart getUserById(long id) {
         return userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Override
-    public UserCart addToCart(Long id, Long productid){
+    public UserCart addToCart(long id, long productId){
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        Product product = productService.getProductById(productid);
-        user.getCart().add(product);
-        userCartRepo.save(user);
-        return  user;
+        Product product = productService.getProductById(productId);
+        user.addToCart(product);
+        return userCartRepo.save(user);
     }
 
     @Override
-    public Iterable<Product> productFromCart(Long id) {
-        UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException((id)));
-        return user.getCart();
-    }
-
-    @Override
-    public UserCart deleteFromCart(Long id, Long productid){
+    public UserCart deleteFromCart(long id, long productId){
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        user.getCart().removeIf(pid -> pid.getId().equals(productid));
+        user.getCart().removeIf(pid -> pid.getId().equals(productId));
         userCartRepo.save(user);
         return user;
     }

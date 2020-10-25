@@ -1,10 +1,11 @@
 package com.example.webapp.domain;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductSpecs {
-    private ProductSpecs() { }
-
     public static Specification<Product> productTypeIs(String productType) {
         return (root, query, builder) -> {
             if (productType != null)
@@ -20,4 +21,9 @@ public class ProductSpecs {
         return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get(Product_.amount), amount);
     }
 
+    public static Specification<Product> specificationByFilter(ProductFilter productFilter) {
+        return productTypeIs(productFilter.getProductType())
+                            .and(priceBetween(productFilter.getMinPrice(), productFilter.getMaxPrice())
+                            .and(amountBiger(productFilter.getMinAmount())));
+    }
 }
