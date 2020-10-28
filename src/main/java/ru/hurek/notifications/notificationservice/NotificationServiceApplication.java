@@ -1,15 +1,13 @@
-package com.example.webapp;
+package ru.hurek.notifications.notificationservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableSwagger2
-public class Application {
+public class NotificationServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(NotificationServiceApplication.class, args);
     }
 
 }
