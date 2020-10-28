@@ -31,7 +31,8 @@ public class UserCart {
 
     }
 
-    public void addToCart(Product product) {
-        this.cart.add(product);
+    public void addToCart(Product product, long amount) {
+        for(long i = 0; i < amount; i++)
+            this.cart.add(product);
     }
 }

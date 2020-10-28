@@ -5,8 +5,8 @@ import com.example.webapp.domain.User;
 
 public interface UserService {
     User createUser(UserDto newUser);
-    User updateUser(Long id, UserDto user);
-    User deleteUser(Long id);
+    User updateUser(long id, UserDto user);
+    User deleteUser(long id);
     Iterable<User> getUsers();
-    User getUserById(Long id);
+    User getUserById(long id);
 }

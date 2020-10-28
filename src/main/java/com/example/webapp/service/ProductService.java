@@ -6,10 +6,10 @@ import com.example.webapp.domain.Product;
 
 public interface ProductService {
     Product createProduct(ProductDto newProduct);
-    Product updateProduct(Long id, ProductDto updateProduct);
-    Product deleteProduct(Long id);
+    Product updateProduct(long id, ProductDto updateProduct);
+    Product deleteProduct(long id);
     Iterable<Product> getProducts();
-    Product getProductById(Long id);
+    Product getProductById(long id);
     Iterable<Product> getProductById(Iterable<Long> ids);
     Iterable<Product> getProducts(ProductFilter filter);
 }

@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, ProductDto updateProduct){
+    public Product updateProduct(long id, ProductDto updateProduct){
         Product product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
         product.setProduct(updateProduct);
         productRepo.save(product);
@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product deleteProduct(Long id) {
+    public Product deleteProduct(long id) {
         Product product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
         productRepo.deleteById(id);
         return product;
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(long id) {
         return productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 

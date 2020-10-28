@@ -19,9 +19,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(UserDto newUser) {
         User userFromDb = userRepo.findByUsername(newUser.getUsername());
-        if (userFromDb != null) {
-            throw new UserExistsException(newUser.getUsername());
-        }
+        if (userFromDb != null) { throw new UserExistsException(newUser.getUsername()); }
         User user = new User(newUser.getUsername(), newUser.getPassword(), newUser.getEmail());
         user.setActive(true);
         user.setRoles(Collections.singleton(UserRole.USER));
@@ -30,13 +28,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long id, UserDto updateUser){
-        User user;
-        if (id != null && userRepo.existsById(id)) {
-            user = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        } else {
-            throw new UserNotFoundException(id);
-        }
+    public User updateUser(long id, UserDto updateUser){
+        User user = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.setUsername(updateUser.getUsername());
         user.setPassword(updateUser.getPassword());
         user.setEmail(updateUser.getEmail());
@@ -45,15 +38,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User deleteUser(Long id) {
-        User user;
-        if (id != null && userRepo.existsById(id)) {
-            user = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-            userRepo.deleteById(id);
-            return user;
-        } else {
-            throw new UserNotFoundException(id);
-        }
+    public User deleteUser(long id) {
+        User user = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        userRepo.deleteById(id);
+        return user;
     }
 
     @Override
@@ -62,7 +50,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long id) {
+    public User getUserById(long id) {
         return userRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 }

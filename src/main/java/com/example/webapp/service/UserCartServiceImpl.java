@@ -52,7 +52,7 @@ public class UserCartServiceImpl implements UserCartService {
     public UserCart addToCart(long id, long productId){
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         Product product = productService.getProductById(productId);
-        user.addToCart(product);
+        user.addToCart(product, 1L);
         return userCartRepo.save(user);
     }
 
