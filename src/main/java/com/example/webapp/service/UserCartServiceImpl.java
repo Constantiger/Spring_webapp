@@ -9,6 +9,8 @@ import com.example.webapp.repos.UserCartRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -52,7 +54,14 @@ public class UserCartServiceImpl implements UserCartService {
     public UserCart addToCart(long id, long productId){
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         Product product = productService.getProductById(productId);
-        user.addToCart(product, 1L);
+        user.addToCart(product);
+        return userCartRepo.save(user);
+    }
+
+    @Override
+    public UserCart addListToCart(long id, List<Long> productIds) {
+        UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        productIds.forEach(productId -> user.addToCart(productService.getProductById(productId)));
         return userCartRepo.save(user);
     }
 
@@ -60,7 +69,20 @@ public class UserCartServiceImpl implements UserCartService {
     public UserCart deleteFromCart(long id, long productId){
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.getCart().removeIf(pid -> pid.getId().equals(productId));
-        userCartRepo.save(user);
-        return user;
+        return userCartRepo.save(user);
+    }
+
+    @Override
+    public UserCart deleteListFromCart(long id, List<Long> productIds) {
+        UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        productIds.forEach(productId -> user.getCart().remove(productService.getProductById(productId)));
+        return userCartRepo.save(user);
+    }
+
+    @Override
+    public UserCart removeAllFromCart(long id) {
+        UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        user.getCart().clear();
+        return userCartRepo.save(user);
     }
 }

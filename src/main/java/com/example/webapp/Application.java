@@ -36,7 +36,7 @@ public class Application {
                 "Shop microservice API",
                 "0.1",
                 "Free to use",
-                new springfox.documentation.service.Contact("Constantine Gerasimov", "", "constantiget@gmail.com"),
+                new springfox.documentation.service.Contact("Constantine Gerasimov", "", "constantiger@gmail.com"),
                 "API License",
                 "",
                 Collections.emptyList());

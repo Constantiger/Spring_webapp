@@ -6,6 +6,8 @@ import com.example.webapp.service.UserCartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class UserCartController {
@@ -44,5 +46,20 @@ public class UserCartController {
     @DeleteMapping("/userCart/{id}/product_{productId}")
     public UserCart deleteFromCart(@PathVariable long id, @PathVariable long productId) {
         return userCartService.deleteFromCart(id, productId);
+    }
+
+    @PutMapping("/userCart/{id}/products")
+    public UserCart addListToCart(@PathVariable long id, @RequestBody List<Long> productIds) {
+        return userCartService.addListToCart(id, productIds);
+    }
+
+    @DeleteMapping("/userCart/{id}/products")
+    public UserCart deleteListFromCart(@PathVariable long id, @RequestBody List<Long> productIds) {
+        return userCartService.deleteListFromCart(id, productIds);
+    }
+
+    @DeleteMapping("/userCart/{id}/removeAll")
+    public UserCart removeAllFromCart(@PathVariable long id) {
+        return userCartService.removeAllFromCart(id);
     }
 }

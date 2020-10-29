@@ -6,13 +6,11 @@ import lombok.Value;
 @Value
 public class UserCartDto {
     String username;
+    String password;
 
-    public UserCartDto() {
-        username = null;
-    }
-
-    public UserCartDto(String username) {
+    public UserCartDto(String username, String password) {
         this.username = username;
+        this.password = password;
     }
 
     public static UserCart getNewUserCart(UserCartDto userCartDto) {
