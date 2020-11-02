@@ -8,11 +8,6 @@ public class UserCartDto {
     String username;
     String password;
 
-    public UserCartDto(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
     public static UserCart getNewUserCart(UserCartDto userCartDto) {
         return new UserCart(userCartDto);
     }

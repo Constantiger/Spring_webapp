@@ -8,30 +8,31 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/user")
 public class UserAdministrationController {
     private final UserService userService;
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public User show(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/user")
+    @GetMapping()
     public Iterable<User> showAll() {
         return userService.getUsers();
     }
 
-    @PostMapping("/user")
+    @PostMapping()
     public User addUser(@RequestBody UserDto newUser) {
         return userService.createUser(newUser);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody UserDto updateUser) {
         return userService.updateUser(id, updateUser);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public User deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
     }

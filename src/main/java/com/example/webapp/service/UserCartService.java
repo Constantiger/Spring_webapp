@@ -12,8 +12,8 @@ public interface UserCartService {
     Iterable<UserCart> getUsers();
     UserCart getUserById(long id);
     UserCart addToCart(long id, long productId);
-    UserCart addListToCart(long id, List<Long> productIds);
+    UserCart addProductsToCart(long id, List<Long> productIds);
     UserCart deleteFromCart(long id, long productId);
-    UserCart deleteListFromCart(long id, List<Long> productIds);
-    UserCart removeAllFromCart(long id);
+    UserCart deleteProductsFromCart(long id, List<Long> productIds);
+    UserCart removeAllProductsFromCart(long id);
 }

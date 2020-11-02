@@ -59,7 +59,7 @@ public class UserCartServiceImpl implements UserCartService {
     }
 
     @Override
-    public UserCart addListToCart(long id, List<Long> productIds) {
+    public UserCart addProductsToCart(long id, List<Long> productIds) {
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         productIds.forEach(productId -> user.addToCart(productService.getProductById(productId)));
         return userCartRepo.save(user);
@@ -73,14 +73,14 @@ public class UserCartServiceImpl implements UserCartService {
     }
 
     @Override
-    public UserCart deleteListFromCart(long id, List<Long> productIds) {
+    public UserCart deleteProductsFromCart(long id, List<Long> productIds) {
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         productIds.forEach(productId -> user.getCart().remove(productService.getProductById(productId)));
         return userCartRepo.save(user);
     }
 
     @Override
-    public UserCart removeAllFromCart(long id) {
+    public UserCart removeAllProductsFromCart(long id) {
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.getCart().clear();
         return userCartRepo.save(user);

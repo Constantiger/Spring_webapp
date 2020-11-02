@@ -10,56 +10,57 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/userCart")
 public class UserCartController {
     private final UserCartService userCartService;
 
-    @GetMapping("/userCart/{id}")
+    @GetMapping("/{id}")
     public UserCart show(@PathVariable long id) {
         return userCartService.getUserById(id);
     }
 
-    @GetMapping("/userCart")
+    @GetMapping()
     public Iterable<UserCart> showAll() {
         return userCartService.getUsers();
     }
 
-    @PostMapping("/userCart")
+    @PostMapping()
     public UserCart addUser(@RequestBody UserCartDto newUser) {
         return userCartService.createUser(newUser);
     }
 
-    @PutMapping("/userCart/{id}")
+    @PutMapping("/{id}")
     public UserCart updateUser(@PathVariable long id, @RequestBody UserCartDto updateUser) {
         return userCartService.updateUser(id, updateUser);
     }
 
-    @DeleteMapping("/userCart/{id}")
+    @DeleteMapping("/{id}")
     public UserCart deleteUser(@PathVariable long id) {
         return userCartService.deleteUser(id);
     }
 
-    @PutMapping("/userCart/{id}/product_{productId}")
+    @PutMapping("/{id}/product/{productId}")
     public UserCart addToCart(@PathVariable long id, @PathVariable long productId) {
         return userCartService.addToCart(id, productId);
     }
 
-    @DeleteMapping("/userCart/{id}/product_{productId}")
+    @DeleteMapping("/{id}/product/{productId}")
     public UserCart deleteFromCart(@PathVariable long id, @PathVariable long productId) {
         return userCartService.deleteFromCart(id, productId);
     }
 
-    @PutMapping("/userCart/{id}/products")
-    public UserCart addListToCart(@PathVariable long id, @RequestBody List<Long> productIds) {
-        return userCartService.addListToCart(id, productIds);
+    @PutMapping("/{id}/products")
+    public UserCart addProductsToCart(@PathVariable long id, @RequestBody List<Long> productIds) {
+        return userCartService.addProductsToCart(id, productIds);
     }
 
-    @DeleteMapping("/userCart/{id}/products")
-    public UserCart deleteListFromCart(@PathVariable long id, @RequestBody List<Long> productIds) {
-        return userCartService.deleteListFromCart(id, productIds);
+    @DeleteMapping("/{id}/products")
+    public UserCart deleteProductsFromCart(@PathVariable long id, @RequestBody List<Long> productIds) {
+        return userCartService.deleteProductsFromCart(id, productIds);
     }
 
-    @DeleteMapping("/userCart/{id}/removeAll")
-    public UserCart removeAllFromCart(@PathVariable long id) {
-        return userCartService.removeAllFromCart(id);
+    @DeleteMapping("/{id}/all")
+    public UserCart removeAllProductsFromCart(@PathVariable long id) {
+        return userCartService.removeAllProductsFromCart(id);
     }
 }

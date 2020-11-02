@@ -1,6 +1,6 @@
 package com.example.webapp.dto;
 
-import lombok.*;
+import lombok.Value;
 
 @Value
 public class ProductDto {
@@ -8,11 +8,4 @@ public class ProductDto {
     String productType;
     Long price;
     Long amount;
-
-    public ProductDto(String text, String productType, Long price, Long amount) {
-        this.text = text;
-        this.productType = productType;
-        this.price = price;
-        this.amount = amount;
-    }
 }

@@ -1,6 +1,7 @@
 package com.example.webapp.domain;
 
 import com.example.webapp.dto.ProductDto;
+import com.example.webapp.dto.ProductResponse;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -42,5 +43,9 @@ public class Product {
         this.setProductType(productDto.getProductType());
         this.setText(productDto.getText());
         this.setAmount(productDto.getAmount());
+    }
+
+    public ProductResponse toProductResponse() {
+        return new ProductResponse(this);
     }
 }

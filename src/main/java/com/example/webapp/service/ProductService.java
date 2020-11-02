@@ -4,6 +4,7 @@ import com.example.webapp.dto.ProductDto;
 import com.example.webapp.domain.ProductFilter;
 import com.example.webapp.domain.Product;
 
+
 public interface ProductService {
     Product createProduct(ProductDto newProduct);
     Product updateProduct(long id, ProductDto updateProduct);
