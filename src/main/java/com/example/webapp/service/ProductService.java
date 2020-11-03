@@ -3,14 +3,16 @@ package com.example.webapp.service;
 import com.example.webapp.dto.ProductDto;
 import com.example.webapp.domain.ProductFilter;
 import com.example.webapp.domain.Product;
+import com.example.webapp.dto.ProductResponse;
 
 
 public interface ProductService {
-    Product createProduct(ProductDto newProduct);
-    Product updateProduct(long id, ProductDto updateProduct);
-    Product deleteProduct(long id);
-    Iterable<Product> getProducts();
+    ProductResponse createProduct(ProductDto newProduct);
+    ProductResponse updateProduct(long id, ProductDto updateProduct);
+    ProductResponse deleteProduct(long id);
+    Iterable<ProductResponse> getProducts();
+    ProductResponse getProductResponseById(long id);
     Product getProductById(long id);
-    Iterable<Product> getProductById(Iterable<Long> ids);
-    Iterable<Product> getProducts(ProductFilter filter);
+    Iterable<ProductResponse> getProductById(Iterable<Long> ids);
+    Iterable<ProductResponse> getProducts(ProductFilter filter);
 }

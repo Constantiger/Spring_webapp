@@ -1,19 +1,26 @@
 package com.example.webapp.dto;
 
-import com.example.webapp.domain.Product;
 import com.example.webapp.domain.UserCart;
 import lombok.Value;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Value
 public class UserCartResponse {
     Long id;
     String username;
-    List<Product> cart;
+    Iterable<ProductResponse> cart;
 
     public UserCartResponse(UserCart userCart) {
         this.id = userCart.getId();
         this.username = userCart.getUsername();
-        this.cart = userCart.getCart();
+        this.cart = ProductResponse.convert(userCart.getCart());
+    }
+
+    public static Iterable<UserCartResponse> convert(Iterable<UserCart> products) {
+        List<UserCartResponse> responses = new ArrayList<>();
+        products.forEach(userCart -> responses.add(new UserCartResponse(userCart)));
+        return responses;
     }
 }

@@ -1,19 +1,19 @@
 package com.example.webapp.service;
 
-import com.example.webapp.domain.UserCart;
 import com.example.webapp.dto.UserCartDto;
+import com.example.webapp.dto.UserCartResponse;
 
 import java.util.List;
 
 public interface UserCartService {
-    UserCart createUser(UserCartDto newUser);
-    UserCart updateUser(long id, UserCartDto user);
-    UserCart deleteUser(long id);
-    Iterable<UserCart> getUsers();
-    UserCart getUserById(long id);
-    UserCart addToCart(long id, long productId);
-    UserCart addProductsToCart(long id, List<Long> productIds);
-    UserCart deleteFromCart(long id, long productId);
-    UserCart deleteProductsFromCart(long id, List<Long> productIds);
-    UserCart removeAllProductsFromCart(long id);
+    UserCartResponse createUser(UserCartDto newUser);
+    UserCartResponse updateUser(long id, UserCartDto user);
+    UserCartResponse deleteUser(long id);
+    Iterable<UserCartResponse> getUsers();
+    UserCartResponse getUserById(long id);
+    UserCartResponse addToCart(long id, long productId);
+    UserCartResponse addProductsToCart(long id, List<Long> productIds);
+    UserCartResponse deleteFromCart(long id, long productId);
+    UserCartResponse deleteProductsFromCart(long id, List<Long> productIds);
+    UserCartResponse removeAllProductsFromCart(long id);
 }

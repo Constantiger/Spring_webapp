@@ -1,6 +1,7 @@
 package com.example.webapp.domain;
 
 import com.example.webapp.dto.UserCartDto;
+import com.example.webapp.dto.UserCartResponse;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,5 +34,9 @@ public class UserCart {
 
     public void addToCart(Product product) {
             this.cart.add(product);
+    }
+
+    public UserCartResponse toUserCartResponse() {
+        return new UserCartResponse(this);
     }
 }

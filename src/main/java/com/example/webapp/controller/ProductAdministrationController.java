@@ -20,23 +20,23 @@ public class ProductAdministrationController {
     @ApiOperation(value = "Find product by id",
                     notes = "required long integer ID")
     public ProductResponse productById(@PathVariable long id) {
-        return productService.getProductById(id).toProductResponse();
+        return productService.getProductResponseById(id);
     }
 
     @GetMapping()
     @ApiOperation(value = "Get filtered products",
             notes = "filter all products by ProductType, amount, minimal and maximal price",
             response = Product.class)
-    public Iterable<ProductResponse> product(@ApiParam(value = "filter parameters.", defaultValue = "pageSize = 20", required = false)
+    public Iterable<ProductResponse> product(@ApiParam(value = "filter parameters.", defaultValue = "pageSize = 20")
                                                  ProductFilter filter) {
-        return ProductResponse.convert(productService.getProducts(filter));
+        return productService.getProducts(filter);
     }
 
     @GetMapping("/all")
     @ApiOperation(value = "Get all existing products",
             response = Product.class)
     public Iterable<ProductResponse> allProduct() {
-        return ProductResponse.convert(productService.getProducts());
+        return productService.getProducts();
     }
 
     @PostMapping()
@@ -44,20 +44,20 @@ public class ProductAdministrationController {
             notes = "required ProductDto with set productType, amount, price and description text",
             response = Product.class)
     public ProductResponse addProduct(@ApiParam(value = "ProductDto", required = true) @RequestBody ProductDto newProduct) {
-        return productService.createProduct(newProduct).toProductResponse();
+        return productService.createProduct(newProduct);
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "update product in database",
             notes = "required ProductDto with set productType, amount, price and description text")
     public ProductResponse updateProduct(@PathVariable long id, @RequestBody ProductDto updateProduct) {
-        return productService.updateProduct(id, updateProduct).toProductResponse();
+        return productService.updateProduct(id, updateProduct);
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete product by id",
             notes = "required long integer ID")
     public ProductResponse deleteProduct(@PathVariable long id) {
-        return productService.deleteProduct(id).toProductResponse();
+        return productService.deleteProduct(id);
     }
 }
