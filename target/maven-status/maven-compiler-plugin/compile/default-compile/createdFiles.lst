@@ -1,0 +1,11 @@
+ru/hurek/notifications/notificationservice/repository/NotificationRepository.class
+ru/hurek/notifications/notificationservice/mappers/NotificationMapperImpl.class
+ru/hurek/notifications/notificationservice/mappers/NotificationMapper.class
+ru/hurek/notifications/notificationservice/model/Notification.class
+ru/hurek/notifications/notificationservice/controller/NotificationController.class
+ru/hurek/notifications/notificationservice/controller/NotificationControllerImpl.class
+ru/hurek/notifications/notificationservice/NotificationServiceApplication.class
+ru/hurek/notifications/notificationservice/service/NotificationServiceImpl.class
+ru/hurek/notifications/notificationservice/service/NotificationService.class
+ru/hurek/notifications/notificationservice/model/NotificationTypes.class
+ru/hurek/notifications/notificationservice/model/NotificationDto.class
