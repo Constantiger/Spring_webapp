@@ -1,2 +1,9 @@
 /.idea/
 /target/
+/mvnw
+/pg_install.sh
+/pg_start.sh
+/pg_stop.sh
+/mvnw.cmd
+/HELP.md
+/src/main/java/ru/hurek/notifications/notificationservice/converter/

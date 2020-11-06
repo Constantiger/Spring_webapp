@@ -1,10 +1,12 @@
 package ru.hurek.notifications.notificationservice.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 
 @Data
-@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class NotificationDto {
     private long id;
     private long userId;
