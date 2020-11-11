@@ -1,13 +1,14 @@
 package ru.hurek.notifications.notificationservice.service;
 
 import ru.hurek.notifications.notificationservice.model.NotificationDto;
+import ru.hurek.notifications.notificationservice.model.NotificationDtoIdLess;
 
 import java.util.List;
 
 public interface NotificationService {
     NotificationDto get(long id);
     List<NotificationDto> getAll();
-    NotificationDto create(NotificationDto notificationDto);
+    NotificationDto create(NotificationDtoIdLess notificationDtoIdLess);
     NotificationDto update(NotificationDto notificationDto);
-    void delete(long id);
+    NotificationDto delete(long id);
 }

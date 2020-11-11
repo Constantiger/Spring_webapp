@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NotificationDto {
-    @NotNull
-    private long id;
-
+public class NotificationDtoIdLess {
     @NotNull
     private long userId;
 
@@ -20,4 +17,5 @@ public class NotificationDto {
 
     @NotNull
     private String event;
+
 }

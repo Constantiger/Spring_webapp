@@ -3,7 +3,9 @@ package ru.hurek.notifications.notificationservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 //import ru.hurek.notifications.notificationservice.converter.NotificationDtoToNotificationConverter;
+import ru.hurek.notifications.notificationservice.exceptions.EntityNotFoundException;
 import ru.hurek.notifications.notificationservice.mappers.NotificationMapper;
+import ru.hurek.notifications.notificationservice.model.NotificationDtoIdLess;
 import ru.hurek.notifications.notificationservice.repository.NotificationRepository;
 //import ru.hurek.notifications.notificationservice.converter.NotificationToNotificationDtoConverter;
 import ru.hurek.notifications.notificationservice.model.Notification;
@@ -16,12 +18,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
     private final NotificationRepository notificationRepository;
-//    private final NotificationDtoToNotificationConverter notificationDtoToNotificationConverter;
-//    private final NotificationToNotificationDtoConverter notificationToNotificationDtoConverter;
+
 
     @Override
     public NotificationDto get(long id) {
-        Notification notification = notificationRepository.findById(id).orElseThrow(RuntimeException::new);
+        Notification notification = notificationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
         return NotificationMapper.INSTANCE.toNotificationDto(notification);
     }
 
@@ -33,8 +34,8 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public NotificationDto create(NotificationDto notificationDto) {
-        Notification notification = notificationRepository.save(NotificationMapper.INSTANCE.toNotification(notificationDto));
+    public NotificationDto create(NotificationDtoIdLess notificationDtoIdLess) {
+        Notification notification = notificationRepository.save(NotificationMapper.INSTANCE.toNewNotification(notificationDtoIdLess));
         return NotificationMapper.INSTANCE.toNotificationDto(notification);
     }
 
@@ -45,7 +46,9 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void delete(long id) {
+    public NotificationDto delete(long id) {
+        Notification notification = notificationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
         notificationRepository.deleteById(id);
+        return NotificationMapper.INSTANCE.toNotificationDto(notification);
     }
 }

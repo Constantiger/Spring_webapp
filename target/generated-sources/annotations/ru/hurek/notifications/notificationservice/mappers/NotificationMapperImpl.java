@@ -3,10 +3,11 @@ package ru.hurek.notifications.notificationservice.mappers;
 import javax.annotation.Generated;
 import ru.hurek.notifications.notificationservice.model.Notification;
 import ru.hurek.notifications.notificationservice.model.NotificationDto;
+import ru.hurek.notifications.notificationservice.model.NotificationDtoIdLess;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-06T14:19:37+0300",
+    date = "2020-11-11T17:36:51+0300",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.9 (Amazon.com Inc.)"
 )
 public class NotificationMapperImpl implements NotificationMapper {
@@ -39,6 +40,21 @@ public class NotificationMapperImpl implements NotificationMapper {
         notification.setUserId( notificationDto.getUserId() );
         notification.setType( notificationDto.getType() );
         notification.setEvent( notificationDto.getEvent() );
+
+        return notification;
+    }
+
+    @Override
+    public Notification toNewNotification(NotificationDtoIdLess notificationDtoIdLess) {
+        if ( notificationDtoIdLess == null ) {
+            return null;
+        }
+
+        Notification notification = new Notification();
+
+        notification.setUserId( notificationDtoIdLess.getUserId() );
+        notification.setType( notificationDtoIdLess.getType() );
+        notification.setEvent( notificationDtoIdLess.getEvent() );
 
         return notification;
     }
