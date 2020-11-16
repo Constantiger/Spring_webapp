@@ -1,26 +1,16 @@
 package com.example.webapp.dto;
 
-import com.example.webapp.domain.UserCart;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Value;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Value
+@ApiModel(value = "User cart data response object", description = "Transfer userCart data from service")
 public class UserCartResponse {
+    @ApiModelProperty(value = "Unique Id", dataType = "Long")
     Long id;
+    @ApiModelProperty(value = "Unique username", dataType = "String")
     String username;
+    @ApiModelProperty(value = "List of products in cart", dataType = "List<ProductResponse>")
     Iterable<ProductResponse> cart;
-
-    public UserCartResponse(UserCart userCart) {
-        this.id = userCart.getId();
-        this.username = userCart.getUsername();
-        this.cart = ProductResponse.convert(userCart.getCart());
-    }
-
-    public static Iterable<UserCartResponse> convert(Iterable<UserCart> products) {
-        List<UserCartResponse> responses = new ArrayList<>();
-        products.forEach(userCart -> responses.add(new UserCartResponse(userCart)));
-        return responses;
-    }
 }

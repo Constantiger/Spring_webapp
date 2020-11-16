@@ -1,42 +1,34 @@
 package com.example.webapp.domain;
 
-import com.example.webapp.dto.UserCartDto;
-import com.example.webapp.dto.UserCartResponse;
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.ArrayList;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor
 @ToString
 @Entity
 @Table(name = "user_cart")
 public class UserCart {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @NotNull
     private Long id;
 
+    @Column(unique = true)
+    @NotBlank
     private String username;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Product> cart;
-
-    public UserCart(UserCartDto user) {
-        this.username = user.getUsername();
-        this.cart = new ArrayList<>();
-
-    }
 
     public void addToCart(Product product) {
             this.cart.add(product);
     }
-
-    public UserCartResponse toUserCartResponse() {
-        return new UserCartResponse(this);
-    }
+    public void addToCart(Product product, int amount) { this.cart.addAll(Collections.nCopies(amount, product)); }
 }

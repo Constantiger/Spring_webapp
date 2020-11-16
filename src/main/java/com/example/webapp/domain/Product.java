@@ -1,51 +1,35 @@
 package com.example.webapp.domain;
 
-import com.example.webapp.dto.ProductDto;
-import com.example.webapp.dto.ProductResponse;
 import lombok.*;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @ToString
 @Entity
 public class Product {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @NotNull
     private Long id;
 
+    @Lob
     private String  text;
+
+    @NotBlank
     private String  productType;
+
+    @Positive
+    @NotNull
     private Long    price;
+
+    @PositiveOrZero
+    @NotNull
     private Long    amount;
-
-    public Product(String text, String productType, Long price, Long amount) {
-        this.text = text;
-        this.productType = productType;
-        this.price = price;
-        this.amount = amount;
-    }
-
-    public Product(ProductDto productDto) {
-        this.text = productDto.getText();
-        this.productType = productDto.getProductType();
-        this.price = productDto.getPrice();
-        this.amount = productDto.getAmount();
-    }
-
-    public void setProduct(ProductDto productDto) {
-        this.setPrice(productDto.getPrice());
-        this.setProductType(productDto.getProductType());
-        this.setText(productDto.getText());
-        this.setAmount(productDto.getAmount());
-    }
-
-    public ProductResponse toProductResponse() {
-        return new ProductResponse(this);
-    }
 }

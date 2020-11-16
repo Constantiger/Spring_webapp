@@ -1,30 +1,20 @@
 package com.example.webapp.dto;
 
-import com.example.webapp.domain.Product;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Value;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Value
+@ApiModel(value = "Product data response object", description = "Transfer product data from service")
 public class ProductResponse {
+    @ApiModelProperty(value = "Unique product id", dataType = "String")
     Long id;
-    String text;
+    @ApiModelProperty(value = "Accompanying text about product", dataType = "String")
+    String  text;
+    @ApiModelProperty(dataType = "String")
     String productType;
+    @ApiModelProperty(dataType = "Long", allowableValues = "range[0, infinity]")
     Long price;
+    @ApiModelProperty(value = "Number of products available", dataType = "Long", allowableValues = "range[0, infinity]")
     Long amount;
-
-    public ProductResponse(Product product) {
-        this.id = product.getId();
-        this.text = product.getText();
-        this.productType = product.getProductType();
-        this.price = product.getPrice();
-        this.amount = product.getAmount();
-    }
-
-    public static Iterable<ProductResponse> convert(Iterable<Product> products) {
-        List<ProductResponse> responses = new ArrayList<>();
-        products.forEach(product -> responses.add(new ProductResponse(product)));
-        return responses;
-    }
 }

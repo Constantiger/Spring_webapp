@@ -17,13 +17,13 @@ public class ProductSpecs {
     public static Specification<Product> priceBetween(Long min, Long max) {
         return (root, query, builder) -> builder.between(root.get(Product_.price), min, max);
     }
-    public static Specification<Product> amountBiger(Long amount) {
+    public static Specification<Product> amountGreater(Long amount) {
         return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get(Product_.amount), amount);
     }
 
     public static Specification<Product> specificationByFilter(ProductFilter productFilter) {
         return productTypeIs(productFilter.getProductType())
                             .and(priceBetween(productFilter.getMinPrice(), productFilter.getMaxPrice())
-                            .and(amountBiger(productFilter.getMinAmount())));
+                            .and(amountGreater(productFilter.getMinAmount())));
     }
 }

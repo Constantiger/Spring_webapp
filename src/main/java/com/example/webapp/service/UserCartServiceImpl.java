@@ -6,84 +6,95 @@ import com.example.webapp.dto.UserCartDto;
 import com.example.webapp.dto.UserCartResponse;
 import com.example.webapp.error.UserExistsException;
 import com.example.webapp.error.UserNotFoundException;
+import com.example.webapp.mapper.UserCartResponseMapper;
 import com.example.webapp.repos.UserCartRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-
 
 @Service
 @RequiredArgsConstructor
 public class UserCartServiceImpl implements UserCartService {
     private final UserCartRepo userCartRepo;
     private final ProductService productService;
+    private final UserCartResponseMapper mapper;
 
     @Override
-    public UserCartResponse createUser(UserCartDto newUser) {
-        if (userCartRepo.findByUsername(newUser.getUsername()) != null) {
+    public UserCartResponse createUserCart(UserCartDto newUser) {
+        try {
+            return mapper.userCartToUserCartResponse(userCartRepo.save(mapper.userCartDtoToUserCart(newUser)));
+        } catch (RuntimeException exception) {
             throw new UserExistsException(newUser.getUsername());
         }
-        return userCartRepo.save(UserCartDto.getNewUserCart(newUser)).toUserCartResponse();
     }
 
     @Override
-    public UserCartResponse updateUser(long id, UserCartDto updateUser) {
+    @Transactional
+    public UserCartResponse updateUserCart(long id, UserCartDto updateUser) {
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.setUsername(updateUser.getUsername());
-        return userCartRepo.save(user).toUserCartResponse();
+        return mapper.userCartToUserCartResponse(userCartRepo.save(user));
     }
 
     @Override
-    public UserCartResponse deleteUser(long id) {
+    @Transactional
+    public UserCartResponse deleteUserCart(long id) {
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         userCartRepo.deleteById(id);
-        return user.toUserCartResponse();
+        return mapper.userCartToUserCartResponse(user);
     }
 
     @Override
-    public Iterable<UserCartResponse> getUsers() {
-        return UserCartResponse.convert(userCartRepo.findAll());
+    @Transactional(readOnly = true)
+    public Iterable<UserCartResponse> getUserCarts() {
+        return mapper.listOfUserCartResponse(userCartRepo.findAll());
     }
 
     @Override
-    public UserCartResponse getUserById(long id) {
-        return userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id)).toUserCartResponse();
+    @Transactional(readOnly = true)
+    public UserCartResponse getUserCartById(long id) {
+        return mapper.userCartToUserCartResponse(userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id)));
     }
 
     @Override
-    public UserCartResponse addToCart(long id, long productId){
-        UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    @Transactional
+    public UserCartResponse addToCart(long id, long productId, int amount){
+        UserCart userCart = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         Product product = productService.getProductById(productId);
-        user.addToCart(product);
-        return userCartRepo.save(user).toUserCartResponse();
+        userCart.addToCart(product, amount);
+        return mapper.userCartToUserCartResponse(userCartRepo.save(userCart));
     }
 
     @Override
+    @Transactional
     public UserCartResponse addProductsToCart(long id, List<Long> productIds) {
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         productIds.forEach(productId -> user.addToCart(productService.getProductById(productId)));
-        return userCartRepo.save(user).toUserCartResponse();
+        return mapper.userCartToUserCartResponse(userCartRepo.save(user));
     }
 
     @Override
+    @Transactional
     public UserCartResponse deleteFromCart(long id, long productId){
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.getCart().removeIf(pid -> pid.getId().equals(productId));
-        return userCartRepo.save(user).toUserCartResponse();
+        return mapper.userCartToUserCartResponse(userCartRepo.save(user));
     }
 
     @Override
+    @Transactional
     public UserCartResponse deleteProductsFromCart(long id, List<Long> productIds) {
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         productIds.forEach(productId -> user.getCart().remove(productService.getProductById(productId)));
-        return userCartRepo.save(user).toUserCartResponse();
+        return mapper.userCartToUserCartResponse(userCartRepo.save(user));
     }
 
     @Override
+    @Transactional
     public UserCartResponse removeAllProductsFromCart(long id) {
         UserCart user = userCartRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.getCart().clear();
-        return userCartRepo.save(user).toUserCartResponse();
+        return mapper.userCartToUserCartResponse(userCartRepo.save(user));
     }
 }
