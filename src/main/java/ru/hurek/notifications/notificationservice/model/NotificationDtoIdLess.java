@@ -1,21 +1,25 @@
 package ru.hurek.notifications.notificationservice.model;
 
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
+@Value
+@ApiModel(value = "New notification data transfer object", description = "Transfer new notification data to service")
 public class NotificationDtoIdLess {
-    @NotNull
-    private long userId;
+    @ApiModelProperty(value = "User ID", required = true)
+    @PositiveOrZero
+    Long userId;
 
+    @ApiModelProperty(value = "Notification type", required = true)
     @NotNull
-    private NotificationTypes type;
+    NotificationTypes type;
 
-    @NotNull
-    private String event;
-
+    @ApiModelProperty(value = "Notification event", required = true)
+    @NotBlank
+    String event;
 }
